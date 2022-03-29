@@ -1,0 +1,321 @@
+<html>
+
+<head>
+  <title>form</title>
+  <meta charset="UTF-8">
+
+
+  <style type="text/css">
+    table.sample1 {
+      border-collapse: collapse;
+    }
+
+    table.sample2 {
+      border: solid 2px;
+      border-collapse: collapse;
+    }
+
+    tr.partb {
+      border: solid 1px;
+    }
+
+    #box1 {
+      border: solid 1px;
+
+    }
+
+    #box2 {
+      border: solid 2px;
+    }
+
+    #box2left {
+      border-left: solid 2px;
+    }
+
+    #box2right {
+      border-right: solid 2px;
+    }
+
+    .sample2 tr td div {
+      font-size: 12.px;
+      font-size: 12px;
+    }
+
+    .sample2 tr td {
+      font-size: 12px;
+    }
+
+
+  </style>
+
+
+
+</head>
+
+<body>
+
+
+{{ location }}
+  <table width="720">
+    <tr>
+      <td width="96">甲部</td>
+      <td width="594">不受學校網限制的學校選擇</td>
+    </tr>
+    <tr>
+      <td>Part A</td>
+      <td>Unrestricted School Choices</td>
+    </tr>
+    <tr>
+      <td height="156" colspan="3">這部分可選擇任回學校網的學校，包括學生所屬學校網。請參閱「不受學校網限制選校手冊」，並依選擇的優先次序填上學校編號，電腦會先處理甲部的學校選擇。<br>You may select schools from ANY school nets, including the student's school net. Please refer to the "Handbook for Unrestricted School Choices" and enter the School Codes
+        in order of preference. The school choices in Part A will be processed first.</td>
+    </tr>
+  </table>
+
+  <table width="720" class="sample1">
+    <tr>
+      <td width="20"></td>
+      <td width="100"></td>
+      <td colspan="3">第一選擇<br>First Choice</td>
+      <td width="20"></td>
+      <td width="100"></td>
+      <td colspan="3">第二選擇<br>Second Choice</td>
+      <td width="20"></td>
+      <td width="100"></td>
+      <td colspan="3">第三選擇<br>Third Choice</td>
+    </tr>
+    <tr>
+      <td width="20"></td>
+      <td width="100">學校編號<br>SchoolCode</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="20"></td>
+      <td width="100">學校編號<br>SchoolCode</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="20"></td>
+      <td width="100">學校編號<br>SchoolCode</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+      <td width="40" id="box1">&nbsp;</td>
+    </tr>
+  </table>
+  <br>
+
+
+  <table width="720">
+    <tr>
+      <td width="118">乙部</td>
+      <td width="329">按學校網的學校選擇</td>
+      <td width="153">學生所屬學校網</td>
+      <td width="100" rowspan="2" id="box1"></td>
+    </tr>
+    <tr>
+      <td>Part B</td>
+      <td>Restricted School Choices</td>
+      <td>Student's School Net</td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <p>請參閱學生所屬學校網的「中學一覽表」，並依選擇的優先次序填上組23的學校編號，學生如未獲分配甲部選填的學校，電腦便會處理乙部的學校選擇。</p>
+        <p>Please refer to the "Secondary School List" and enter the School Codes within student's school net in order of preference. The school choices in Part B will be processed if students are not allocated school places in Part A</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"></td>
+      <td colspan="3"></td>
+    </tr>
+  </table>
+
+  <table width="720" class="sample2">
+    <tr class="partb">
+      <td width="120" id="box2">
+        <div align="left">選擇次序<br>Order of Preference</div>
+      </td>
+      <th width="60" colspan="3" id="box2">1</th>
+      <th width="60" colspan="3" id="box2">2</th>
+      <th width="60" colspan="3" id="box2">3</th>
+      <th width="60" colspan="3" id="box2">4</th>
+      <th width="60" colspan="3" id="box2">5</th>
+      <th width="60" colspan="3" id="box2">6</th>
+      <th width="60" colspan="3" id="box2">7</th>
+      <th width="60" colspan="3" id="box2">8</th>
+      <th width="60" colspan="3" id="box2">9</th>
+      <th width="60" colspan="3" id="box2">10</th>
+    </tr>
+    <tr>
+      <td>學校編號<br>School Code</th>
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+    </tr>
+  </table>
+
+
+  <br>
+
+
+  <table width="720" class="sample2">
+    <tr class="partb">
+      <td width="120" id="box2">
+        <div align="left">選擇次序<br>Order of Preference</div>
+      </td>
+      <th width="60" colspan="3" id="box2">11</th>
+      <th width="60" colspan="3" id="box2">12</th>
+      <th width="60" colspan="3" id="box2">13</th>
+      <th width="60" colspan="3" id="box2">14</th>
+      <th width="60" colspan="3" id="box2">15</th>
+      <th width="60" colspan="3" id="box2">16</th>
+      <th width="60" colspan="3" id="box2">17</th>
+      <th width="60" colspan="3" id="box2">18</th>
+      <th width="60" colspan="3" id="box2">19</th>
+      <th width="60" colspan="3" id="box2">20</th>
+    </tr>
+    <tr>
+      <td>學校編號<br>School Code</th>
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+    </tr>
+  </table>
+
+  <br>
+
+
+  <table width="720" class="sample2">
+    <tr class="partb">
+      <td width="120" id="box2">
+        <div align="left">選擇次序<br>Order of Preference</div>
+      </td>
+      <th width="60" colspan="3" id="box2">21</th>
+      <th width="60" colspan="3" id="box2">22</th>
+      <th width="60" colspan="3" id="box2">23</th>
+      <th width="60" colspan="3" id="box2">24</th>
+      <th width="60" colspan="3" id="box2">25</th>
+      <th width="60" colspan="3" id="box2">26</th>
+      <th width="60" colspan="3" id="box2">27</th>
+      <th width="60" colspan="3" id="box2">28</th>
+      <th width="60" colspan="3" id="box2">29</th>
+      <th width="60" colspan="3" id="box2">30</th>
+    </tr>
+    <tr>
+      <td>學校編號<br>School Code</th>
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+
+        <td width="20" id="box2left">&nbsp;</td>
+        <td width="20" id="box1">&nbsp;</td>
+        <td width="20" id="box2right">&nbsp;</td>
+    </tr>
+  </table>
+
+
+</body>
+
+</html>

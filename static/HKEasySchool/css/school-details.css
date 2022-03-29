@@ -1,0 +1,48 @@
+.overlay-rmore {
+    position: absolute;
+    border-radius: 50%;
+    height: 54px;
+    width: 54px;
+    line-height: 54px;
+    left: 50%;
+    top: 50%;
+    margin: -27px 0 0 -27px;
+    z-index: 5;
+    text-align: center;
+    color: #fff;
+    font-size: 19px;
+    font-weight: normal;
+    background-color: #D6644A;
+    color: #FFF;
+    border-color: #D6644A;
+    transition: .4s;
+    opacity: 0;
+    -webkit-transform: translateZ(0) rotate(-45deg);
+    transform: translateZ(0) rotate(-45deg);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    visibility: hidden;
+    transition: .4s;
+}
+
+.quickview {
+    cursor: pointer;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+.fa-search:before {
+    content: "\f002";
+}

@@ -1,0 +1,290 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- you need to include the shieldui css and js assets in order for the components to work -->
+  <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+  <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+  <script type="text/javascript">
+    function changeLiveLocation(item, id) {
+      document.getElementById("menu3").innerHTML = item + "<span class=\"caret\"></span>";
+      document.getElementById("menu1").value = id;
+    }
+
+    function changeLiveReligion(item,id ) {
+      document.getElementById("menu2").innerHTML = item + "<span class=\"caret\"></span>";
+      document.getElementById("menu4").value = id;
+    }
+
+    function passValue1() {
+      document.getElementById("hidden1").value = $('#rate1').swidget().value() ;
+    }
+    function passValue2() {
+      document.getElementById("hidden2").value = $('#rate2').swidget().value() ;
+    }
+    function passValue3() {
+      document.getElementById("hidden3").value = $('#rate3').swidget().value() ;
+    }
+    function passValue4() {
+      document.getElementById("hidden4").value = $('#rate4').swidget().value() ;
+    }
+
+    jQuery(function($) {
+      $('#rate1').shieldRating({
+        max: 10,
+        step: 0.1,
+        value: 0,
+        markPreset: false
+      });
+
+      $('#rate2').shieldRating({
+        max: 10,
+        step: 0.1,
+        value: 0,
+        markPreset: false
+      });
+
+      $('#rate3').shieldRating({
+        max: 10,
+        step: 0.1,
+        value: 0,
+        markPreset: false
+      });
+      $('#rate4').shieldRating({
+        max: 10,
+        step: 0.1,
+        value: 0,
+        markPreset: false
+      });
+
+      var progress1 = $("#progress1").shieldProgressBar({
+        value: 50,
+        text: {
+          enabled: true,
+          template: "{0} "
+        }
+      }).swidget();
+
+
+      $("#increase1").shieldButton({
+        events: {
+          click: function() {
+            progress1.value(progress1.value() + 5);
+          }
+        }
+      });
+      $("#decrease1").shieldButton({
+        events: {
+          click: function() {
+            progress1.value(progress1.value() - 5);
+          }
+        }
+      });
+    });
+  </script>
+  <style>
+    .slider {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form name="form1" action='/form' method='GET'>
+    <div class="container">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">學生個人資料</div>
+          <div class="panel-body">
+
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-4">
+                <span style="font-size:16px;">性別:</span>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <div class="btn-group" data-toggle="buttons" id="sex">
+                  <label class="btn btn-default">
+                            <input type="radio" name="sex" autocomplete="off" value="boy" /> 男
+                        </label>
+                  <label class="btn btn-default">
+                            <input type="radio" name="sex" autocomplete="off" value="girl" /> 女
+                        </label>
+                </div>
+              </div>
+            </div>
+
+            <br />
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-4">
+                <span style="font-size:16px;">居住地區:</span>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <div class="dropdown">
+                  <input type="hidden" name="menu1" id="menu1" autocomplete="off" />
+                  <button class="btn btn-primary dropdown-toggle" name="menu3" id="menu3" type="button" data-toggle="dropdown">請選擇<span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="1" onclick="changeLiveLocation('中西區',1);">中西區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="2" onclick="changeLiveLocation('香港東區',2);">香港東區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="3" onclick="changeLiveLocation('離島區',3);">離島區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="4" onclick="changeLiveLocation('香港南區',4);">香港南區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="5" onclick="changeLiveLocation('灣仔區',5);">灣仔區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="6" onclick="changeLiveLocation('九龍城區',6);">九龍城區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="7" onclick="changeLiveLocation('觀塘區',7);">觀塘區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="8" onclick="changeLiveLocation('西貢區',8);">西貢區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="9" onclick="changeLiveLocation('深水埗區',9);">深水埗區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="10" onclick="changeLiveLocation('黃大仙區',10);">黃大仙區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="11" onclick="changeLiveLocation('油尖旺區',11);">油尖旺區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="12" onclick="changeLiveLocation('北區',12);">北區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="13" onclick="changeLiveLocation('沙田區',13);">沙田區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="14" onclick="changeLiveLocation('大埔區',14);">大埔區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="15" onclick="changeLiveLocation('葵青區',15);">葵青區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="16" onclick="changeLiveLocation('荃灣區',16);">荃灣區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="17" onclick="changeLiveLocation('屯門區',17);">屯門區</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1"  value="18" onclick="changeLiveLocation('元朗區',18);">元朗區</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <br />
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <span style="font-size:16px;">學生居住屋邨:</span>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-12 text-center">
+                <input class="form-control" name="live_id" id="live_id" type="text">
+              </div>
+            </div>
+
+            <br />
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <d style="font-size:16px;">學生的學業平均分:</span>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-12 text-center">
+                <input class="form-control" name="avgMark" id="avgMark" type="text">
+              </div>
+
+
+
+            </div>
+            <div class="clearfix"><br /></div>
+          </div>
+
+
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">選取學校的所重視的因素</div>
+          <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-5">
+                  <span style="font-size:16px;">學術:</span>
+                </div>
+                <input type="hidden" id="hidden1" name="rate1" autocomplete="off" />
+                <div class="col-md-10 col-sm-10 col-xs-7">
+                  <div id="rate1" onclick="passValue1()" style="margin-top:6px;"></div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 col-xs-5">
+                <span style="font-size:16px;">體育:</span>
+              </div>
+              <input type="hidden" id="hidden2" name="rate2" autocomplete="off" />
+              <div class="col-md-10 col-sm-10 col-xs-7">
+                <div id="rate2" onclick="passValue2()" style="margin-top:6px;"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 col-xs-5">
+                <span style="font-size:16px;">音樂:</span>
+              </div>
+              <input type="hidden" id="hidden3" name="rate3" autocomplete="off" />
+              <div class="col-md-10 col-sm-10 col-xs-7">
+                <div id="rate3" onclick="passValue3()" style="margin-top:6px;"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 col-xs-5">
+                <span style="font-size:16px;">距離:</span>
+              </div>
+              <input type="hidden" id="hidden4" name="rate4" autocomplete="off" />
+              <div class="col-md-10 col-sm-10 col-xs-7">
+                <div id="rate4" onclick="passValue4()" style="margin-top:6px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">其他要求(選填)</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <span style="font-size:16px;">希望優先進入的學校 第一位:</span>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12 text-center">
+                <input class="form-control" id="inputWantSch1" name="inputWantSch1" type="text">
+              </div>
+            </div>
+
+            </br>
+            <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <span style="font-size:16px;">希望優先進入的學校 第二位:</span>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12 text-center">
+                <input class="form-control" id="inputWantSch2" name="inputWantSch2" type="text">
+              </div>
+            </div>
+
+            </br>
+            <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <span style="font-size:16px;">希望優先進入的學校 第三位:</span>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12 text-center">
+                <input class="form-control" id="inputWantSch3" name="inputWantSch3" type="text">
+              </div>
+            </div>
+
+            </br>
+            <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-5">
+                <span style="font-size:16px;">優先的學校的宗教:</span>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-7">
+                <div class="dropdown">
+                  <input type="hidden" name="menu4" id="menu4" autocomplete="off" />
+                  <button class="btn btn-primary dropdown-toggle" name="menu2" id="menu2" type="button" data-toggle="dropdown">請選擇<span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="1"  onclick="changeLiveReligion('沒有',1);">沒有</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="2"  onclick="changeLiveReligion('天主教會',2);">天主教會</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="3"  onclick="changeLiveReligion('基督教',3);">基督教</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="4"  onclick="changeLiveReligion('佛教',4);">佛教</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="5"  onclick="changeLiveReligion('道教',5);">道教</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="6"  onclick="changeLiveReligion('回教',6);">回教</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" value="7"  onclick="changeLiveReligion('孔教',7);">孔教</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+          <input type="submit" class="btn btn-primary" value="提交表格"></button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </form>
+</body>
+
+</html>

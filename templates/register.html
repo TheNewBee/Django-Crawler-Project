@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% load static %}{% block content %}
+
+    <!--=========== BEGIN COURSE BANNER SECTION ================-->
+    <section id="imgBanner">
+      <h2>Register</h2>
+    </section>
+    <!--=========== END COURSE BANNER SECTION ================-->
+
+    <!--=========== BEGIN REGISTER SECTION ================-->
+    <div style="text-align: center;">
+	    <img src="{% static "HKEasySchool/img/register.svg" %}" alt="img" width="100" height="100">
+	  	<h1>Register</h1>
+	  	<form action="/register" method="POST">
+	  		{% csrf_token %}
+	    	<label for="username">Username:</label>
+	    	<input type="text" name="username" id="username" /><br/>
+	    	<label for="username">Password:</label>&nbsp;
+	    	<input type="password" name="password" id="password" /><br/>
+	    	<label for="username">Email:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<input type="text" name="email" id="email" /><br/>
+	    	<input type="hidden" id="publickey" value="{{ public_key }}" />
+	    	<input type="submit" value="Register" id="register-submit" />
+	    </form>
+
+	    <p>{{ status }}</p>
+	</div>
+    <!--=========== END REGISTER SECTION ================-->
+
+{% endblock %}

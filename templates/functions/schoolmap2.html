@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Places Searchbox</title>
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+    #map {
+      height: 100%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .controls {
+      margin-top: 10px;
+      border: 1px solid transparent;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      height: 32px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .controls-small {
+      border: 1px solid transparent;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      height: 24px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #pac-input {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+      margin-left: 12px;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+      width: 300px;
+    }
+
+    #pac-input:focus {
+      border-color: #4d90fe;
+    }
+
+    #pac-button {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+      margin-left: 24px;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+      width: 100px;
+    }
+
+    #pac-button:hover {
+      background-color: #ebebeb;
+      cursor: pointer;
+    }
+
+    #right-panel {
+      height: 80%;
+      width: 350px;
+      float: right;
+      overflow: auto;
+      line-height: 30px;
+      background-color: #fff;
+      font-family: Roboto;
+      margin-right: 6%;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+    }
+
+    #right-panel:empty {
+      display: none;
+    }
+
+    #right-panel select,
+    #right-panel input {
+      font-size: 15px;
+    }
+
+    #right-panel select {
+      width: 100%;
+    }
+
+    #right-panel i {
+      font-size: 12px;
+    }
+
+    .pac-container {
+      font-family: Roboto;
+    }
+
+    #type-selector {
+      color: #fff;
+      background-color: #4d90fe;
+      padding: 5px 11px 0px 11px;
+    }
+
+    #type-selector label {
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    #target {
+      width: 345px;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <input id="pac-button" class="controls" type="button" value="Directions">
+  <div id="right-panel" class="controls"></div>
+  <div id="map"></div>
+  <script>
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
+
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+    function initAutocomplete() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: 22.3192718,
+          lng: 114.1695786
+        },
+        zoom: 12
+      });
+
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      var start = null;
+      var end = null;
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      directionsDisplay.setMap(map);
+
+      var rightPanel = document.getElementById('right-panel');
+      map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(rightPanel);
+      directionsDisplay.setPanel(rightPanel);
+
+      var button = document.getElementById('pac-button');
+      button.addEventListener("click", function() {
+        calculateAndDisplayRoute(start, end, directionsService, directionsDisplay);
+      });
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(button);
+
+      //var service = new google.maps.places.PlacesService(map);
+      //getPlaceById("ChIJBXpCcJf4AzQR_bLzLLmjTJU", service);
+
+      var markers = [];
+      var infoWindow = new google.maps.InfoWindow;
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+          if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+          }
+          var icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
+
+          // Create a marker for each place.
+          var infowincontent = document.createElement('div');
+          var strong = document.createElement('strong');
+          strong.textContent = place.name
+          infowincontent.appendChild(strong);
+          infowincontent.appendChild(document.createElement('br'));
+
+          var text = document.createElement('text');
+          text.textContent = place.formatted_address
+          infowincontent.appendChild(text);
+          infowincontent.appendChild(document.createElement('br'));
+
+          var button = document.createElement('button');
+          button.id = "directions-place-01";
+          button.value = place.place_id;
+          button.className = "controls-small";
+          button.style.background = "#e6e6e6";
+          button.innerHTML = "Choose origin";
+          button.addEventListener("click", function() {
+            start = place;
+            start = place.formatted_address;
+            alert("Origin chose!");
+          });
+          infowincontent.appendChild(button);
+
+          var marker = new google.maps.Marker({
+            map: map,
+            place: {
+              placeId: place.place_id,
+              location: place.geometry.location
+            }
+          });
+          markers.push(marker);
+          marker.addListener('click', function() {
+            infoWindow.setContent(infowincontent);
+            infoWindow.open(map, marker);
+          });
+          infoWindow.setContent(infowincontent);
+          infoWindow.open(map, marker);
+
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+        map.fitBounds(bounds);
+      });
+
+      downloadUrl('schoolmap.xml{{ district_id_uri }}', function(data) {
+        var xml = data.responseXML;
+        var markers = xml.documentElement.getElementsByTagName('marker');
+        Array.prototype.forEach.call(markers, function(markerElem) {
+          var schoolid = markerElem.getAttribute('schoolid');
+          var placeid = markerElem.getAttribute('placeid');
+          var name = markerElem.getAttribute('name');
+          var address = markerElem.getAttribute('address');
+          var point = new google.maps.LatLng(
+            parseFloat(markerElem.getAttribute('lat')),
+            parseFloat(markerElem.getAttribute('lng')));
+
+          var infowincontent = document.createElement('div');
+          var strong = document.createElement('strong');
+          strong.textContent = name
+          infowincontent.appendChild(strong);
+          infowincontent.appendChild(document.createElement('br'));
+
+          var text = document.createElement('text');
+          text.textContent = address
+          infowincontent.appendChild(text);
+          infowincontent.appendChild(document.createElement('br'));
+
+          var button = document.createElement('button');
+          button.id = "directions-place-02";
+          button.value = placeid;
+          button.className = "controls-small";
+          button.style.background = "#e6e6e6";
+          button.innerHTML = "Choose Destination";
+          button.addEventListener("click", function() {
+            end = address;
+            alert("Destination chose!");
+          });
+          infowincontent.appendChild(button);
+
+          var marker = new google.maps.Marker({
+            map: map,
+            place: {
+              placeId: placeid,
+              location: point
+            }
+          });
+          marker.addListener('click', function() {
+            infoWindow.setContent(infowincontent);
+            infoWindow.open(map, marker);
+          });
+        });
+      });
+    }
+
+    function downloadUrl(url, callback) {
+      var request = window.ActiveXObject ?
+        new ActiveXObject('Microsoft.XMLHTTP') :
+        new XMLHttpRequest;
+
+      request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+          request.onreadystatechange = doNothing;
+          callback(request, request.status);
+        }
+      };
+
+      request.open('GET', url, true);
+      request.send(null);
+    }
+
+    function calculateAndDisplayRoute(start, end, directionsService, directionsDisplay) {
+      if (start != null & end != null) {
+        directionsService.route({
+          origin: start,
+          destination: end,
+          travelMode: 'TRANSIT'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+        calculateDistanceMatrix(start, end);
+      } else {
+        alert("Please choose origin and destination FIRST!");
+      }
+    }
+
+    function calculateDistanceMatrix(origin, destination) {
+      var service = new google.maps.DistanceMatrixService;
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'WALKING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }, function(response, status) {
+        if (status === 'OK') {
+          var origins = response.originAddresses;
+          var destinations = response.destinationAddresses;
+
+          for (var i = 0; i < origins.length; i++) {
+            var results = response.rows[i].elements;
+            for (var j = 0; j < results.length; j++) {
+              var element = results[j];
+              var distance = element.distance.text;
+              var duration = element.duration.text;
+              var from = origins[i];
+              var to = destinations[j];
+              alert(distance);
+              alert(duration);
+            }
+          }
+        } else {
+          window.alert('Distance Matrix request failed due to ' + status);
+        }
+      });
+    }
+
+    /*function getPlaceById(placeId, service) {
+      service.getDetails({
+        placeId: placeId
+      }, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          dump(place.formatted_address);
+        }
+      });
+    }*/
+
+    function dump(obj) {
+      var out = '';
+      for (var i in obj) {
+        out += i + ": " + obj[i] + "\n";
+      }
+      alert(out);
+
+      var pre = document.createElement('pre');
+      pre.innerHTML = out;
+      document.body.appendChild(pre)
+    }
+
+    function doNothing() {}
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwyx31Pb5JigwujQcYaCWPXPy2OwQ7gqs&libraries=places&callback=initAutocomplete" async defer></script>
+</body>
+
+</html>
